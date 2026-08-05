@@ -1,0 +1,27 @@
+{
+  "sprint": "408-HO-1F",
+  "observedAt": "2026-08-03T14:09:00-07:00",
+  "status": "SOURCE-CERTIFIED-LIVE-NOT-RECHECKED",
+  "production": {
+    "status": "not-rechecked-after-408-HO-1F",
+    "formspreeSubmissions": "not-attempted-in-this-sprint",
+    "note": "408-HO-1D live post-deployment certification was intentionally skipped."
+  },
+  "sourcePackage": {
+    "status": "CERTIFIED-IN-SIMULATION",
+    "senderBuild": "408-HO-1F",
+    "handoffContract": "coveragefit-handoff-v1",
+    "receiver": "CoverageFit v3.20.7",
+    "checksPassed": 132,
+    "checksTotal": 132,
+    "mockFormspreeAccepted": 5,
+    "mockFormspreeAttempted": 5,
+    "transitionRuntimeChecksPassed": 3,
+    "transitionRuntimeChecksTotal": 3,
+    "addressRuntimeChecksPassed": 11,
+    "addressRuntimeChecksTotal": 11,
+    "staticChecksPassed": 149,
+    "staticChecksTotal": 149
+  },
+  "releaseGate": "Deploy 408-HO-1F and CoverageFit v3.20.7, then optionally run the full production smoke command."
+}

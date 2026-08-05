@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "1.0",
+  "build": "408-HO-1G",
+  "handoffContract": "coveragefit-handoff-v1",
+  "sender": "408farmers",
+  "receiver": "CoverageFit v3.20.8",
+  "formspree": {
+    "host": "formspree.io",
+    "path": "/f/mojgnegn"
+  },
+  "coverageFit": {
+    "home": "https://coveragefit.com/home/",
+    "transition": "https://coveragefit.com/transition/",
+    "launch": "https://coveragefit.com/transition/?next=%2Fhome%2F"
+  },
+  "routes": [
+    {
+      "path": "/home/",
+      "entry": "home_lander_form",
+      "launchSurface": "home_lander"
+    },
+    {
+      "path": "/tech/",
+      "entry": "tech_eligibility_form",
+      "launchSurface": "occupation_tech"
+    },
+    {
+      "path": "/engineers/",
+      "entry": "engineers_eligibility_form",
+      "launchSurface": "occupation_engineer"
+    },
+    {
+      "path": "/healthcare/",
+      "entry": "healthcare_eligibility_form",
+      "launchSurface": "occupation_healthcare"
+    },
+    {
+      "path": "/teachers/",
+      "entry": "teachers_eligibility_form",
+      "launchSurface": "occupation_education"
+    }
+  ],
+  "receiverRelease": "CoverageFit_v3.20.8_RPT1.3_Agent_Workspace_Customer_Report_Recovery_Deployable"
+}
