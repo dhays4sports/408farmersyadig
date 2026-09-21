@@ -1,3 +1,15 @@
+## SIGNAL-FOUNDATION-1.0 — Signal UX Browser Foundation
+
+- Added an isolated anonymous `SignalSession` primitive with seven-day local resume, versioning, canonical answer history, expiry, and memory fallback.
+- Added declarative signal-flow registration so future Life/Home/Auto/Commercial pages can share one interaction engine rather than bespoke forms.
+- Added first-touch / latest-touch campaign and UTM attribution persistence.
+- Added a truthful signal analytics taxonomy that never equates a click or answer with a lead, conversation, quote, or sale.
+- Added accessible Back, Resume, Start Over, completion, and failure/retry behavior.
+- Changing an earlier answer now removes dependent downstream answers and rebuilds canonical signals.
+- Added the noindex `/signal-lab/` foundation demo; it creates no Formspree lead and calls no CoverageFit API.
+- Added permanent Node regression QA and a branch/PR GitHub Actions gate.
+- Existing production Home, Tech, Engineers, Healthcare, Teachers, Auto Bundle, and CoverageFit handoff behavior remains unchanged.
+
 ## 408-BRAND-1A — 408FARMERS Logo Integration
 
 - Replaced the previous logo with the supplied 408FARMERS Insurance Text Line identity.
