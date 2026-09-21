@@ -1,5 +1,20 @@
 # 408-FARMERS Product Roadmap
 
+## Signal-First Acquisition Program
+
+- [x] **SIGNAL-FOUNDATION-1.0** — Anonymous SignalSession, Flow Registry, attribution, event model, local resume, Back/edit invalidation, accessible Signal Shell, noindex lab, regression QA
+- [ ] **CF-SIGNAL-DECISION-1.0** — CoverageFit decision contract using the canonical Opportunity Priority evidence core
+- [ ] **SIGNAL-LIFE-1.0** — First production minimal signal journey
+- [ ] **SIGNAL-HANDOFF-1.0** — Anonymous signal → consented CoverageFit opportunity promotion with ZERO-REPEAT handoff
+- [ ] **SIGNAL-HOME-BUYER-1.0** — Home + buyer flows on the common engine
+- [ ] **SIGNAL-AUTO-1.0** — Trigger-first auto journey
+- [ ] **SIGNAL-BUSINESS-1.0** — Trigger → timing → business-class journey
+- [ ] **SIGNAL-AFFINITY-1.0** — Healthcare / teachers / tech / engineers as context adapters
+- [ ] **SIGNAL-HOMEBASE-1.0** — Homepage universal signal router
+- [ ] **SIGNAL-OMNICHANNEL-1.0** — Retell, SMS, QR, referral, email and bot clients on the same decision contract
+
+**Operating doctrine:** expose many → ask little → detect signal → score evidence in CoverageFit → route → use human judgment where it adds disproportionate value.
+
 ## Active objective
 Increase qualified conversations, close rate, and premium per household. Features without a direct 90-day revenue connection remain parked.
 

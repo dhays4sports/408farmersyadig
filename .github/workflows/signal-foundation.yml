@@ -1,0 +1,43 @@
+name: Signal Foundation QA
+
+on:
+  push:
+    branches:
+      - signal-foundation-1.0
+    paths:
+      - 'shared/signal/**'
+      - 'signal-lab/**'
+      - 'qa/test-signal-foundation.js'
+      - 'SIGNAL-FOUNDATION-1.0.md'
+      - '.github/workflows/signal-foundation.yml'
+  pull_request:
+    paths:
+      - 'shared/signal/**'
+      - 'signal-lab/**'
+      - 'qa/test-signal-foundation.js'
+      - 'SIGNAL-FOUNDATION-1.0.md'
+
+permissions:
+  contents: read
+
+jobs:
+  foundation:
+    name: Node regression QA
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Parse Signal Foundation JavaScript
+        run: |
+          for file in shared/signal/*.js signal-lab/signal-lab.js; do
+            node --check "$file"
+          done
+      - name: Run Signal Foundation QA
+        run: node qa/test-signal-foundation.js
+      - name: Verify existing production static contract
+        run: python3 qa/test-static.py

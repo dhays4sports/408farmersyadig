@@ -1,0 +1,108 @@
+/* 408FARMERS Signal Foundation — intentionally isolated from production landing pages. */
+.signal-page{
+  min-height:100vh;
+  margin:0;
+  font-family:var(--cf-font-sans,Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif);
+  color:var(--cf-color-ink,#10233d);
+  background:
+    radial-gradient(circle at top right,rgba(91,173,44,.08),transparent 34rem),
+    linear-gradient(180deg,#fbfdff 0%,#f5f8fb 100%);
+}
+.signal-lab-header{
+  width:min(920px,calc(100% - 32px));
+  margin:0 auto;
+  padding:24px 0 0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+.signal-lab-brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#08285a;font-weight:900}
+.signal-lab-brand img{width:138px;height:auto;display:block}
+.signal-lab-badge{font-size:.72rem;font-weight:850;letter-spacing:.08em;text-transform:uppercase;color:#52677c}
+.signal-stage{
+  width:min(720px,calc(100% - 32px));
+  margin:clamp(44px,9vh,96px) auto 56px;
+}
+.signal-card{
+  background:#fff;
+  border:1px solid #dce5ee;
+  border-radius:28px;
+  box-shadow:0 28px 80px rgba(4,26,59,.10);
+  padding:clamp(26px,5vw,52px);
+}
+.signal-question-top{min-height:34px;display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
+.signal-progress,.signal-eyebrow{font-size:.72rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:#52677c}
+.signal-eyebrow{display:block;color:#123d78;margin-bottom:12px}
+.signal-question h1,.signal-resume h1,.signal-complete h1,.signal-error h1{
+  color:#08285a;
+  font-size:clamp(2rem,6vw,3.65rem);
+  letter-spacing:-.055em;
+  line-height:1.02;
+  margin:0;
+  max-width:15ch;
+}
+.signal-question h1:focus,.signal-resume h1:focus,.signal-complete h1:focus{outline:none}
+.signal-support,.signal-resume p,.signal-complete p,.signal-error p{
+  color:#617187;
+  font-size:1rem;
+  line-height:1.65;
+  margin:18px 0 0;
+  max-width:58ch;
+}
+.signal-choices{display:grid;gap:12px;margin-top:32px}
+.signal-choice{
+  appearance:none;
+  width:100%;
+  border:1px solid #d7e1eb;
+  background:#fff;
+  border-radius:16px;
+  padding:18px 20px;
+  min-height:62px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
+  gap:4px;
+  color:#08285a;
+  font:inherit;
+  font-size:1rem;
+  font-weight:850;
+  text-align:left;
+  cursor:pointer;
+  transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease,background .16s ease;
+}
+.signal-choice:hover{transform:translateY(-1px);border-color:#9eb3c7;box-shadow:0 10px 24px rgba(4,26,59,.07);background:#fbfdff}
+.signal-choice:focus-visible,.signal-primary:focus-visible,.signal-secondary:focus-visible,.signal-back:focus-visible{outline:3px solid rgba(91,173,44,.32);outline-offset:3px}
+.signal-choice small{font-size:.8rem;color:#617187;font-weight:600}
+.signal-back{
+  appearance:none;border:0;background:transparent;padding:8px 0;color:#456078;font:inherit;font-size:.82rem;font-weight:800;cursor:pointer
+}
+.signal-privacy{margin:24px 0 0;color:#758395;font-size:.8rem;line-height:1.55}
+.signal-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.signal-primary,.signal-secondary{
+  appearance:none;border-radius:14px;min-height:54px;padding:0 20px;font:inherit;font-weight:900;cursor:pointer
+}
+.signal-primary{border:0;background:#08285a;color:#fff}
+.signal-secondary{border:1px solid #d7e1eb;background:#fff;color:#08285a}
+.signal-summary-list{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:8px}
+.signal-summary-list li{border:1px solid #e2e9f0;border-radius:12px;padding:12px 14px;background:#f8fafc;font-weight:750;color:#294865}
+.signal-error{border-left:4px solid #8c3e16;padding-left:20px}
+.signal-lab-meta{
+  width:min(720px,calc(100% - 32px));
+  margin:0 auto 64px;
+  color:#617187;
+  font-size:.82rem;
+  line-height:1.55;
+}
+.signal-lab-meta details{border:1px solid #dce5ee;border-radius:14px;background:#fff;padding:14px 16px}
+.signal-lab-meta summary{cursor:pointer;font-weight:850;color:#294865}
+.signal-lab-meta pre{overflow:auto;white-space:pre-wrap;word-break:break-word;background:#f5f8fb;border-radius:10px;padding:12px;font-size:.72rem}
+.signal-human-exit{display:inline-flex;margin-top:18px;color:#294865;font-weight:800;text-underline-offset:3px}
+@media(max-width:560px){
+  .signal-lab-header{align-items:flex-start;flex-direction:column}
+  .signal-card{border-radius:22px}
+  .signal-choice{padding:17px}
+  .signal-actions{display:grid}
+}
+@media(prefers-reduced-motion:reduce){.signal-choice{transition:none}}
