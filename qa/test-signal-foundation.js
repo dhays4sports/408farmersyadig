@@ -105,8 +105,12 @@ assert.throws(()=>Events.emit('lead_created',{}),/unsupported/i);
 
 const lab=fs.readFileSync(path.join(__dirname,'../signal-lab/index.html'),'utf8');
 assert.match(lab,/noindex,nofollow,noarchive/);
-assert.doesNotMatch(lab,/formspree/i);
-assert.doesNotMatch(lab,/coveragefit\.com/i);
+assert.doesNotMatch(lab,/<form\b/i);
+assert.ok(!lab.includes('coveragefit-launch.js'),'lab must not load the CoverageFit launcher');
+assert.ok(!lab.includes('../shared/script.js'),'lab must not load the production lead form runtime');
+const labRuntime=fs.readFileSync(path.join(__dirname,'../signal-lab/signal-lab.js'),'utf8');
+assert.ok(!/\bfetch\s*\(/.test(labRuntime),'lab runtime must not make network requests');
+assert.ok(!/CoverageFitLauncher|formEndpoint/.test(labRuntime),'lab runtime must not invoke lead or CoverageFit integrations');
 for(const file of [
   'signal-contract.js','signal-attribution.js','signal-events.js','signal-session.js',
   'signal-flow-registry.js','signal-demo-flow.js','signal-shell.js'
