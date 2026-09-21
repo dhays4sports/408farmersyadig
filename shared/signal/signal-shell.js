@@ -82,7 +82,10 @@
         <span class="signal-eyebrow">We kept your answers</span>
         <h1>That next step didn’t load.</h1>
         <p>${esc(message||'Please try again. Your saved signal session is still on this device.')}</p>
-        <div class="signal-actions"><button type="button" class="signal-primary" data-signal-retry>Try again</button></div>
+        <div class="signal-actions">
+          <button type="button" class="signal-primary" data-signal-retry>Try again</button>
+          <button type="button" class="signal-secondary" data-signal-restart>Start over</button>
+        </div>
       </section>`;
   }
 
@@ -189,14 +192,22 @@
       startFresh(true);
     }
     function retry(){render();}
+    function safeAction(action){
+      try{return action();}
+      catch(error){
+        event('signal_error',{error_message:error?.message||'interaction_failed'});
+        node.innerHTML=errorMarkup(error?.message);
+        return null;
+      }
+    }
 
     node.addEventListener('click',eventObject=>{
       const answerButton=eventObject.target.closest?.('[data-signal-answer]');
-      if(answerButton){answer(answerButton.dataset.signalAnswer);return;}
-      if(eventObject.target.closest?.('[data-signal-back]')){back();return;}
-      if(eventObject.target.closest?.('[data-signal-resume]')){resume();return;}
-      if(eventObject.target.closest?.('[data-signal-restart]')){restart();return;}
-      if(eventObject.target.closest?.('[data-signal-retry]')){retry();}
+      if(answerButton){safeAction(()=>answer(answerButton.dataset.signalAnswer));return;}
+      if(eventObject.target.closest?.('[data-signal-back]')){safeAction(back);return;}
+      if(eventObject.target.closest?.('[data-signal-resume]')){safeAction(resume);return;}
+      if(eventObject.target.closest?.('[data-signal-restart]')){safeAction(restart);return;}
+      if(eventObject.target.closest?.('[data-signal-retry]')){safeAction(retry);}
     },{signal:abort.signal});
 
     const onPageHide=()=>{if(state.session?.state==='active')event('signal_session_paused',{answer_count:state.session.history.length});};
