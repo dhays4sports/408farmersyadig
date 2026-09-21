@@ -111,7 +111,7 @@ for(const file of [
   'signal-contract.js','signal-attribution.js','signal-events.js','signal-session.js',
   'signal-flow-registry.js','signal-demo-flow.js','signal-shell.js'
 ]){
-  assert.match(lab,new RegExp(file.replace(/[.*+?^$()|[\]{}]/g,'\\$&')));
+  assert.ok(lab.includes(file),`lab should load ${file}`);
 }
 
 console.log('SIGNAL-FOUNDATION-1.0 QA passed');
