@@ -6,14 +6,15 @@
 })(typeof window!=='undefined'?window:globalThis,function(root){
   'use strict';
 
-  const VERSION='1.0.0';
+  const VERSION='1.1.0';
   const QUERY_KEYS=Object.freeze([
     'campaign','utm_source','utm_medium','utm_campaign','utm_content','utm_term',
     'creative','ref','referral','partner_id','batch_id','source_key','source'
   ]);
   const STORAGE_KEY='408farmers.signal.attribution.v1';
   const MAX_VALUE=180;
-  const clean=value=>String(value??'').trim().replace(/[<>\u0000-\u001f\u007f]/g,'').slice(0,MAX_VALUE);
+  const clean=(value,max=MAX_VALUE)=>String(value??'').trim().replace(/[<>\u0000-\u001f\u007f]/g,'').slice(0,max);
+  const clone=value=>JSON.parse(JSON.stringify(value));
 
   function safeStorage(){
     try{
@@ -25,7 +26,10 @@
   }
   function readStored(){
     const storage=safeStorage();if(!storage)return {};
-    try{const parsed=JSON.parse(storage.getItem(STORAGE_KEY)||'{}');return parsed&&typeof parsed==='object'&&!Array.isArray(parsed)?parsed:{};}catch(_){return {};}
+    try{
+      const parsed=JSON.parse(storage.getItem(STORAGE_KEY)||'{}');
+      return parsed&&typeof parsed==='object'&&!Array.isArray(parsed)?parsed:{};
+    }catch(_){return {};}
   }
   function writeStored(value){
     const storage=safeStorage();if(!storage)return false;
@@ -57,25 +61,50 @@
       })
     });
   }
-  function capture(){
-    const stored=readStored(),query=queryValues(),merged={...stored,...query};
+  function externalReferrer(){
+    try{
+      const refUrl=root.document?.referrer?new URL(root.document.referrer):null;
+      if(refUrl&&refUrl.origin!==root.location?.origin)return clean(refUrl.hostname,180);
+    }catch(_){}
+    return '';
+  }
+  function touch(base={},query={},capturedAt=new Date().toISOString()){
+    const merged={...base,...query};
     if(!merged.campaign){
       const campaign=clean(root.CFCampaign?.current);
       if(campaign)merged.campaign=campaign;
     }
-    if(Object.keys(query).length)writeStored(merged);
     const canonical=normalize(merged);
-    const landingPage=clean(root.location?.pathname||'/');
-    let referrer='';
-    try{
-      const refUrl=root.document?.referrer?new URL(root.document.referrer):null;
-      if(refUrl&&refUrl.origin!==root.location?.origin)referrer=clean(refUrl.hostname,180);
-    }catch(_){}
     return Object.freeze({
       ...canonical,
-      landingPage,
-      referrer,
-      capturedAt:new Date().toISOString()
+      landingPage:clean(root.location?.pathname||'/',180),
+      referrer:externalReferrer(),
+      capturedAt
+    });
+  }
+  function rawFromTouch(value={}){
+    return {
+      campaign:value.campaign,
+      source:value.source,
+      sourceKey:value.sourceKey,
+      partnerId:value.partnerId,
+      batchId:value.batchId,
+      creative:value.creative,
+      ref:value.ref,
+      utm:value.utm
+    };
+  }
+  function capture(){
+    const stored=readStored(),query=queryValues(),priorLatest=stored.latestTouch||stored.firstTouch||{};
+    const at=new Date().toISOString();
+    const latest=touch(rawFromTouch(priorLatest),query,at);
+    const first=stored.firstTouch?clone(stored.firstTouch):clone(latest);
+    const record={schemaVersion:'1.0',firstTouch:first,latestTouch:clone(latest),updatedAt:at};
+    writeStored(record);
+    return Object.freeze({
+      ...latest,
+      firstTouch:Object.freeze(clone(first)),
+      latestTouch:Object.freeze(clone(latest))
     });
   }
   function reset(){const storage=safeStorage();try{storage?.removeItem(STORAGE_KEY);return true;}catch(_){return false;}}
